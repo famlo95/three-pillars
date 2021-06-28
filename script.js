@@ -20,9 +20,13 @@ class Bookshelf {
     }
 }
 
-function loadBooks (callback) {
-	fakeAjax(BOOK_API, callback); /* Add the books to Bookshelf */
-    callback.printFavoriteBooks(); /* Print the name of the books */
+function loadBooks (theBookshelf) {
+	fakeAjax(BOOK_API, function onBooks (bookNames) {
+        for (const bookName of bookNames) {
+            theBookshelf.addFavoriteBook(bookName);
+        }
+        theBookshelf.printFavoriteBooks();
+    });
 }
 
 let BOOK_API = "https://some.url/api";
